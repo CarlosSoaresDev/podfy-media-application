@@ -1,0 +1,12 @@
+{
+    "Parameters": [
+        {
+            "ParameterKey": "BucketName",
+            "ParameterValue": "lambda-aplication-repository"            
+        },
+        {
+            "ParameterKey": "SnsArn",
+            "ParameterValue": "podfy-transcribe-notify"            
+        }
+    ]
+}

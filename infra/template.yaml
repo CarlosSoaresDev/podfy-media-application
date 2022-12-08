@@ -1,0 +1,75 @@
+AWSTemplateFormatVersion : 2010-09-09
+Description: Get up services to podfy media application serverless [ ApiGateway, lambda]
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  ApplicationName:
+    Type: String
+  BucketName:
+    Type: String
+  SnsArn:
+    Type: String
+  AccessKey:
+    Type: String
+  SecretKey:
+    Type: String
+
+Globals:
+  Function:
+    Timeout: 15
+    MemorySize: 128
+    Runtime: dotnet6
+    CodeUri: s3://lambda-aplication-repository/media-application/release.zip
+    Environment:
+        Variables:
+          ACCESS_KEY: !Ref AccessKey
+          SECRET_KEY: !Ref SecretKey
+          BUCKET_NAME: !Ref BucketName   
+          SNS_ARN: !Sub arn:aws:sns:${AWS::Region}:${AWS::AccountId}:${SnsArn}-topic
+
+Resources:
+
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: !Sub '${ApplicationName}-api'
+      StageName: Prod
+      Cors:
+        AllowMethods: "'POST,GET'"
+        AllowHeaders: "'*'"
+        AllowOrigin: "'*'"
+        MaxAge: "'600'"
+        AllowCredentials: false
+
+  LambdaPutObjectFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub '${ApplicationName}-putobject'
+      Description: This lambda send upload file in bucket
+      Handler: media-application::media_application.Function::PutObjectFunctionHandlerAsync
+      Events:
+        ProxyApiRoot:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGatewayApi
+            Path: /PutObject
+            Method: POST
+
+  LambdaGetObjectFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub '${ApplicationName}-getobject'
+      Description: This lambda get an object of the bucket and return file im base 64 encoded
+      Handler: media-application::media_application.Function::GetObjectFunctionHandlerAsync
+      Events:
+        ProxyApiRoot:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGatewayApi
+            Path: /GetObject
+            Method: GET
+
+Outputs:
+  ApiUrl:
+    Description: URL of your API endpoint
+    Value: !Sub 'https://${ApiGatewayApi}.execute-api.${AWS::Region}.amazonaws.com/Prod'
