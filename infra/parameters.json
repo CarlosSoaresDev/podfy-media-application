@@ -2,7 +2,7 @@
     "Parameters": [
         {
             "ParameterKey": "BucketName",
-            "ParameterValue": "lambda-aplication-repository"
+            "ParameterValue": "media-catalog-files"
         },
         {
             "ParameterKey": "SnsArn",
