@@ -25,6 +25,7 @@ namespace podfy_media_application
         {
             try
             {
+                context.Logger.LogInformation($"Novo arquivo para ser criado");
                 var result = await mediaService.PutObjectAsync(request.Body);
 
                 return result is null ? BadRequest("no file attachment or extension not allowed") : Ok(result);
@@ -41,6 +42,8 @@ namespace podfy_media_application
             try
             {
                 var queryParamValue = request.QueryStringParameters.Where(w => w.Key == "Key").FirstOrDefault().Value;
+
+                context.Logger.LogInformation($"Obter arquivo por key: {queryParamValue}");
 
                 var result = await mediaService.GetObjectByKeyAsync(queryParamValue);
 

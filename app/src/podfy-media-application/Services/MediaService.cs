@@ -54,7 +54,7 @@ public class MediaService : IMediaService
                 var response = await _s3BucketService.PutObjectAsync(request);
 
                 if (response.HttpStatusCode != System.Net.HttpStatusCode.OK)
-                    throw new ApplicationException("Media file upload to S3 failed");
+                    throw new AmazonS3Exception("Media file upload to S3 failed");
 
                 var fileUri = $"https://{bucketName}.s3.amazonaws.com/{key}";
 
@@ -67,7 +67,7 @@ public class MediaService : IMediaService
         }
         catch (Exception ex)
         {
-            throw ex;
+            throw;
         }
     }
 
@@ -93,7 +93,7 @@ public class MediaService : IMediaService
         }
         catch (Exception ex)
         {
-            throw ex;
+            throw;
         }
     }
 }

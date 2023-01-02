@@ -12,5 +12,5 @@
   "function-runtime": "dotnet6",
   "function-memory-size": 128,
   "function-timeout": 30,
-  "function-handler": "podfy_media-application::podfy_media_application.Function::PutObjectFunctionHandlerAsync"
+  "function-handler": "podfy_media_application::podfy_media_application.Function::PutObjectFunctionHandlerAsync"
 }

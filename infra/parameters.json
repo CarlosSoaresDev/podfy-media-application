@@ -2,11 +2,23 @@
     "Parameters": [
         {
             "ParameterKey": "BucketName",
-            "ParameterValue": "lambda-aplication-repository"            
+            "ParameterValue": "lambda-aplication-repository"
         },
         {
             "ParameterKey": "SnsArn",
-            "ParameterValue": "podfy-transcribe-notify"            
+            "ParameterValue": "podfy-transcribe-notify"
+        },
+        {
+            "ParameterKey": "VPC",
+            "ParameterValue": "vpc-09437cf84703ff1bb"
+        },
+        {
+            "ParameterKey": "PrivateSubnetOne",
+            "ParameterValue": "subnet-027e0cc9599b8a957"
+        },
+        {
+            "ParameterKey": "PrivateSubnetTwo",
+            "ParameterValue": "subnet-060328fadbb359aa3"
         }
     ]
 }
