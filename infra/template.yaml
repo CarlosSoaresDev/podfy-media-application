@@ -73,7 +73,7 @@ Resources:
     Properties:
       FunctionName: !Sub '${ApplicationName}-putobject'
       Description: This lambda send upload file in bucket
-      Handler: podfy_media_application::podfy_media_application.Function::PutObjectFunctionHandlerAsync
+      Handler: podfy-media-application::podfy_media_application.Function::PutObjectFunctionHandlerAsync
       Events:
         ProxyApiRoot:
           Type: Api
@@ -87,7 +87,7 @@ Resources:
     Properties:
       FunctionName: !Sub '${ApplicationName}-getobject'
       Description: This lambda get an object of the bucket and return file im base 64 encoded
-      Handler: podfy_media_application::podfy_media_application.Function::GetObjectFunctionHandlerAsync
+      Handler: podfy-media-application::podfy_media_application.Function::GetObjectFunctionHandlerAsync
       Events:
         ProxyApiRoot:
           Type: Api
